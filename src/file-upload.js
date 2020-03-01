@@ -1,12 +1,18 @@
+require('dotenv').config();
+
 const aws = require('aws-sdk'); // import aws-sdk
 // Setting aws configurations 
 aws.config.update({
-    secretAccessKey: "your-secret-key",
-    accessKeyId: "your-access-key-id",
-    region: 'grab-it-from-the-url'
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    region: process.env.REGION
 });
+console.log( " Env \n secretAccessKey",process.env.SECRET_ACCESS_KEY);
+console.log( "accessKeyId",process.env.ACCESS_KEY_ID);
+console.log( "REGION",process.env.REGION);
+console.log( "bucketName",process.env.BUCKET_NAME);
 // Decent bucket name
-const bucketName = 'decent-bucket-name';
+const bucketName = process.env.BUCKET_NAME;
 // Initiating S3 instance
 const s3 = new aws.S3({
     apiVersion: '2006-03-01',
@@ -17,8 +23,13 @@ const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
 // The heart
 // "Key" accepts name of the file, keeping it a timestamp for simplicity 
 // "Body" accepts the file
+
+const filedata = "mockdata";
+
+
 async function upload(file){
-   const params = {Bucket: bucketName, Key:     `${Date.now().toString()}`, Body: file};
+  console.log(" Upload called")
+   const params = {Bucket: bucketName, Key:     `${process.env.BUCKET_PATH_KEY}${Date.now().toString()}`, Body: file};
     let fileResp = null;
     await s3.upload(params, options).promise().then((res) => {
         fileResp = res;
