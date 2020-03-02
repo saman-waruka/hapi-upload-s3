@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  service:
+    container_name: hapi-upload-s3
+    image: node:12.13
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 127.0.0.1:4000:4000
+    command: ["yarn","dev:docker"]
+    # restart: on-failure

@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node src/index.js ",
     "dev": "nodemon src/index.js ",
+    "logs": "docker-compose logs -f --tail=100 service",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down",
+    "dev:docker": "nodemon -L src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
