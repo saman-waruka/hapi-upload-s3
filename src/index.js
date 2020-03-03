@@ -24,22 +24,49 @@ const init = async () => {
   });
 
   server.route({
+    method: "GET",
+    path: "/foodlist",
+    handler: (request, h) => {
+      console.log(" Hell");
+      return "Hello World!";
+    }
+  });
+
+  server.route({
     method: "POST",
     path: "/upload",
     options: {
       handler: async (request, h) => {
-        // console.log(" Upload Called", request);
-
+        // console.log(" Upload Called", request.payload);
+        const { description, symptom, treatment, file, name } = request.payload;
+        let response = {};
         let responseFile = null;
-        await upload(request.payload.file, request.payload.name)
-          .then(resp => {
-            console.log(" Respons ====> ", resp);
-            responseFile = { fileUrl: resp.Location };
-          })
-          .catch(err => {
-            responseFile = err.message;
-          });
-        return responseFile;
+        console.log("detail", description, symptom, treatment);
+        try {
+          if (file) {
+            await upload(file, name)
+              .then(resp => {
+                console.log(" Respons ====> ", resp);
+                responseFile = { fileUrl: resp.Location };
+                response.fileUrl = resp.Location;
+              })
+              .catch(err => {
+                responseFile = err.message;
+              });
+          }
+          if (description) {
+            response.description = description;
+          }
+          if (symptom) {
+            response.symptom = symptom;
+          }
+          if (treatment) {
+            response.treatment = treatment;
+          }
+          return response;
+        } catch (err) {
+          console.log(" error ====> ", err);
+        }
       },
       payload: {
         // output: "stream",
