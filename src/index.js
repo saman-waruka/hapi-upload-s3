@@ -2,7 +2,8 @@
 
 const Hapi = require("@hapi/hapi");
 
-const upload = require("./file-upload");
+const { upload } = require("./helper/s3upload");
+// const upload = require("./file-upload");
 
 const init = async () => {
   const server = Hapi.server({
