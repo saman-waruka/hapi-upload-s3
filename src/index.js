@@ -33,12 +33,14 @@ const init = async () => {
   });
 
   server.route({
-    method: "POST",
+    method: "PUT",
     path: "/upload",
     options: {
       handler: async (request, h) => {
         // console.log(" Upload Called", request.payload);
         const { description, symptom, treatment, file, name } = request.payload;
+        console.log(" request.payload ====> ", request.payload);
+        console.log(" File ====> ", file);
         let response = {};
         let responseFile = null;
         console.log("detail", description, symptom, treatment);
