@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
-    "aws-sdk": "^2.630.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.2.0",
     "mime-types": "^2.1.26",
     "nodemon": "^2.0.2"
